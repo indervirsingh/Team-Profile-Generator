@@ -28,7 +28,8 @@
 
     // Create a Manager type employee
     const createManager = ({name, id, email}, officeNumber) => {
-        let manager = new Engineer(name, id, email, officeNumber);
+        let manager = new Manager(name, id, email, officeNumber);
+        console.log("New manager created: " + JSON.stringify(manager));
     };
 
     // Create an Intern type employee
@@ -39,6 +40,7 @@
     // Create writeFile function using promises instead of a callback function
     const writeFileAsync = util.promisify(fs.writeFile);
 
+    // Prompt for creating a manager
     const teamManagerPrompt = () => {
         return inquirer.prompt([
             {
@@ -69,9 +71,10 @@
 
         // Get team manager info first
         teamManagerPrompt()
-            .then(answers => addEmployee(answers.managerName, answers.managerId, answers.managerEmail))
-            .then((employee) => console.log('Team manager has been created: ' + JSON.stringify(employee)))
+            .then(answers => createManager(addEmployee(answers.managerName, answers.managerId, answers.managerEmail), answers.officeNumber))
             .catch(error => console.error(error));
+        // Now ask prompt for other employees
+        // Maybe a while loop, 'while client wants to keep adding employees do loop'
     };
 
     // Generate the HTML page
