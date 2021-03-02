@@ -1,14 +1,49 @@
-const Employee = require('./lib/Employee');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
-const Manager = require('./lib/Manager');
+// *Variables* ________________________________________________________________________________________________________________
 
-const employee = new Employee('employeeName', 12345, 'employee@email.com');
-const manager = new Manager('ManagerName', 12346, 'manager@email.com', 123456789);
-const intern = new Intern('internName', 12347, 'intern@email.com', 'UC Davis');
-const engineer = new Engineer('engineerName', 12348, 'engineer@email.com', 'github.com/indervirsingh');
+    const Employee = require('./lib/Employee');
+    const Engineer = require('./lib/Engineer');
+    const Intern = require('./lib/Intern');
+    const Manager = require('./lib/Manager');
 
-console.log(employee.getRole());
-console.log(manager.getRole());
-console.log(intern.getRole());
-console.log(engineer.getRole());
+// ____________________________________________________________________________________________________________________________
+
+// *Functions* ________________________________________________________________________________________________________________
+
+    // Create a new Employee, then returns that employee object
+    const addEmployee = (name, id, email) => {
+        let employee = new Employee(name, id, email);
+        return employee;
+    }
+
+    // Create an Engineer type employee
+    const createEngineer = ({name, id, email}, github) => {
+        let engineer = new Engineer(name, id, email, github);
+    }
+
+    // Create a Manager type employee
+    const createManager = ({name, id, email}, officeNumber) => {
+        let manager = new Engineer(name, id, email, officeNumber);
+    }
+
+    // Create an Intern type employee
+    const createIntern = ({name, id, email}, school) => {
+        let manager = new Intern(name, id, email, school);
+    }
+
+    // Initialize the app
+    const init = () => {
+
+    }
+
+    // Generate the HTML page
+    const generateHTML = (...employees) => {
+        // Using the employees array, loop through and create a card for each employee
+        // Maybe a switch statement depending on type of employee
+
+    }
+
+
+// ____________________________________________________________________________________________________________________________
+
+
+
