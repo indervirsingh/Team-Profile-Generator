@@ -35,9 +35,40 @@
         let manager = new Intern(name, id, email, school);
     }
 
+    // Create writeFile function using promises instead of a callback function
+    const writeFileAsync = util.promisify(fs.writeFile);
+
+    const teamManagerPrompt = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'managerName',
+                message: 'Please enter the name of your team manager:'
+            },
+            {
+                type: 'input',
+                name: 'managerId',
+                message: 'Please enter your team manager\'s ID:'
+            },
+            {
+                type: 'input',
+                name: 'managerEmail',
+                message: 'Please enter your team manager\'s email address:'
+            },
+            {
+
+            }
+        ]);
+    }
+
     // Initialize the app
     const init = () => {
 
+        // Get team manager info first
+        teamManagerPrompt()
+            .then(answers => addEmployee(answers.managerName, answers.managerId, answers.managerEmail))
+            then((employee) => console.log('Team manager has been created: ' + employee))
+            .catch(error => console.error(error));
     }
 
     // Generate the HTML page
@@ -50,5 +81,6 @@
 
 // ____________________________________________________________________________________________________________________________
 
+init();
 
 
