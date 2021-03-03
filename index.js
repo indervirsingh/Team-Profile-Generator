@@ -11,6 +11,8 @@
     const Intern = require('./lib/Intern');
     const Manager = require('./lib/Manager');
 
+    var employees = [];
+
 // ____________________________________________________________________________________________________________________________
 
 // *Functions* ________________________________________________________________________________________________________________
@@ -24,23 +26,28 @@
     // Create an Engineer type employee
     const createEngineer = ({name, id, email}, github) => {
         let engineer = new Engineer(name, id, email, github);
+        employees.push(engineer);
+        console.log("New Engineer created: " + JSON.stringify(engineer));
     };
 
     // Create a Manager type employee
     const createManager = ({name, id, email}, officeNumber) => {
         let manager = new Manager(name, id, email, officeNumber);
+        employees.push(manager);
         console.log("New manager created: " + JSON.stringify(manager));
     };
 
     // Create an Intern type employee
     const createIntern = ({name, id, email}, school) => {
-        let manager = new Intern(name, id, email, school);
+        let intern = new Intern(name, id, email, school);
+        employees.push(intern);
+        console.log("New Intern created: " + JSON.stringify(intern));
     };
 
     // Create writeFile function using promises instead of a callback function
     const writeFileAsync = util.promisify(fs.writeFile);
 
-    // Prompt for creating a manager
+    // Prompt for creating a Manager
     const teamManagerPrompt = () => {
         return inquirer.prompt([
             {
@@ -64,23 +71,122 @@
                 message: 'Please enter your team manager\s office number:'
             }
         ]);
+
+    };
+
+    // Prompt for creating an Engineer
+    const createEngineerPrompt = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Please enter the name of the Engineer:'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'Please enter the Engineer\'s ID number:'
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'Please enter the Engineer\'s email address:'
+            },
+            {
+                type: 'input',
+                name: 'github',
+                message: 'Please enter the Engineer\'s GitHub username:'
+            }
+        ]);
+    }
+
+    // Prompt for creating an Intern
+    const createInternPrompt = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Please enter the name of the Intern:'
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: 'Please enter the Intern\'s ID number:'
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: 'Please enter the Intern\'s email address:'
+            },
+            {
+                type: 'input',
+                name: 'school',
+                message: 'Please enter the School/University that the Intern is currently studying at:'
+            }
+        ]);
+    };
+
+    // Asking to keep adding employees prompt
+    const addEmployeesPrompt = () => {
+        return inquirer.prompt([
+            {
+                type: 'list',
+                name: 'options',
+                message: 'Please select an option',
+                choices: ['Add Engineer', 'Add Intern', 'Finish Building Team']
+            }
+        ]);
     };
 
     // Initialize the app
-    const init = () => {
+    const init = async() => {
 
         // Get team manager info first
-        teamManagerPrompt()
-            .then(answers => createManager(addEmployee(answers.managerName, answers.managerId, answers.managerEmail), answers.officeNumber))
-            .catch(error => console.error(error));
-        // Now ask prompt for other employees
-        // Maybe a while loop, 'while client wants to keep adding employees do loop'
+        // This condition is so manager information is asked only once
+        if (employees.length <= 0) {
+            let response = await teamManagerPrompt();
+            // Extract the info needed, then create the manager
+            const { managerName: name, managerId: id, managerEmail, email, officeNumber } = response;
+            createManager(addEmployee(name, id, email,), officeNumber);
+        }
+
+        // This variable will decide if we run this function again or not
+        let addMore = true;
+        // Ask about employees, based on response then decide what to do
+        let addMoreResponse = await addEmployeesPrompt();
+        let option = addMoreResponse.options;
+        switch (option) {
+            case 'Add Engineer':
+                let engineerAnswers = await createEngineerPrompt();
+                const { name: engineerName, id: engineerId, email: engineerEmail, github } = engineerAnswers;
+                createEngineer(addEmployee(engineerName, engineerId, engineerEmail), github);
+                break;
+            case 'Add Intern':
+                let internAnswers = await createInternPrompt();
+                const { name: internName, id: internId, email: internEmail, school } = internAnswers;
+                createIntern(addEmployee(internName, internId, internEmail), school);
+                break;
+            case 'Finish Building Team':
+                generateHTML();
+                addMore = false;
+                break;
+            default:
+                console.log("If you're reading this then somehow you broke my program...tell me how...or forever be stuck in this loop");
+        };
+
+        // This means that if the client didn't choose the finish option then we will run this function again
+        if (addMore) {
+            init();
+        }
     };
 
     // Generate the HTML page
-    const generateHTML = (...employees) => {
+    const generateHTML = () => {
         // Using the employees array, loop through and create a card for each employee
-        // Maybe a switch statement depending on type of employee
+        employees.forEach(employee => {
+            console.log(employee);
+        });
+
 
     };
 
