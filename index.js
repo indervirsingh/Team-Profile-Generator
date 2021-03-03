@@ -1,3 +1,18 @@
+// *Compiled-Code* ____________________________________________________________________________________________________________
+
+    // This will run/initialize the program
+    init();
+
+// ____________________________________________________________________________________________________________________________
+
+
+/* VARIABLES EXPLAINED:
+
+    The only variable I had declared beforehand is an empty array which will hold all the employee-type objects (engineer, intern, manager).
+    Everything else declared here is either a class or module that needs to be imported.
+
+*/
+
 // *Variables* ________________________________________________________________________________________________________________
 
     // Libraries needed/imported
@@ -11,11 +26,40 @@
     const Intern = require('./lib/Intern');
     const Manager = require('./lib/Manager');
 
+    // This will hold all the employee objects (manager, intern, engineer)
     var employees = [];
 
 // ____________________________________________________________________________________________________________________________
 
+
+/* FUNCTIONS EXPLAINED:
+
+    There are a total of [11] functions.
+
+    [1] writeFileAsync() is a small function that will create the HTML file needed
+
+    [2] addEmployee() will create an employee object and return it
+
+    [3-5] createEngineer(), createIntern(), createManager() essentially all do the same thing:
+        - create the sub-class of employee based off info sent in parameter
+        - add that employee object to the employees array
+
+    [6-9] addEmployeesPrompt(), teamManagerPrompt(), createEngineerPrompt(), createInternPrompt() are self explanatory...
+        - ask questions then return the inquirer object to main/init
+
+    [10] generateHTML() is also self explanatory..
+        - extract all the employees from employees array
+        - create the each card using the employee data
+        - create the HTML file by calling the writeFileAsync() function
+
+    [11] init() initializes/runs the entire program
+
+*/
+
 // *Functions* ________________________________________________________________________________________________________________
+
+    // Create writeFile function using promises instead of a callback function
+    const writeFileAsync = util.promisify(fs.writeFile);
 
     // Create a new Employee, then returns that employee object
     const addEmployee = (name, id, email) => {
@@ -43,9 +87,6 @@
         employees.push(intern);
         console.log("New Intern created: " + JSON.stringify(intern));
     };
-
-    // Create writeFile function using promises instead of a callback function
-    const writeFileAsync = util.promisify(fs.writeFile);
 
     // Prompt for creating a Manager
     const teamManagerPrompt = () => {
@@ -138,6 +179,16 @@
         ]);
     };
 
+    // Generate the HTML page
+    const generateHTML = () => {
+        // Using the employees array, loop through and create a card for each employee
+        employees.forEach(employee => {
+            console.log(employee);
+        });
+
+
+    };
+
     // Initialize the app
     const init = async() => {
 
@@ -152,9 +203,10 @@
 
         // This variable will decide if we run this function again or not
         let addMore = true;
+
         // Ask about employees, based on response then decide what to do
-        let addMoreResponse = await addEmployeesPrompt();
-        let option = addMoreResponse.options;
+        let userOption = await addEmployeesPrompt();
+        let option = userOption.options;
         switch (option) {
             case 'Add Engineer':
                 let engineerAnswers = await createEngineerPrompt();
@@ -180,19 +232,4 @@
         }
     };
 
-    // Generate the HTML page
-    const generateHTML = () => {
-        // Using the employees array, loop through and create a card for each employee
-        employees.forEach(employee => {
-            console.log(employee);
-        });
-
-
-    };
-
-
 // ____________________________________________________________________________________________________________________________
-
-init();
-
-
