@@ -186,6 +186,97 @@
             console.log(employee);
         });
 
+        const html = `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Team Profiles</title>
+        
+            <!-- CSS -->
+            <link rel="stylesheet" href="./style.css">
+        
+            <!-- Foundation -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+            <script defer src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+        
+        </head>
+        <body>
+        
+            <!-- Title -->
+            <div class="title callout primary">
+                <h2>My Team</h2>
+            </div>
+        
+            <div class="grid-container">
+                <div class="managerDiv grid-x grid-margin-x">
+                    <div class="cell" id="managerCell">
+                        <div class="card" id="managerCard">
+                            <div class="card-divider">
+                                <h3>Manager Name, Manager</h3>
+                            </div>
+                            <div class="card-section">
+                                <p>ID:</p>
+                                <p>Email:</p>
+                                <p>Office Number:</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Cards for employees -->
+            <div class="employeesDiv grid-x grid-margin-x small-up-2 medium-up-3">
+        
+                <div class="cell">
+                    <div class="card">
+                        <div class="card-divider">
+                            <h3>Employee name and type</h3>
+                        </div>
+                        <div class="card-section">
+                            <p>ID:</p>
+                            <p>Email:</p>
+                            <p>LastInfo:</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="cell">
+                    <div class="card">
+                        <div class="card-divider">
+                            <h3>Employee name and type</h3>
+                        </div>
+                        <div class="card-section">
+                            <p>ID:</p>
+                            <p>Email:</p>
+                            <p>LastInfo:</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="cell">
+                    <div class="card">
+                        <div class="card-divider">
+                            <h3>Employee name and type</h3>
+                        </div>
+                        <div class="card-section">
+                            <p>ID:</p>
+                            <p>Email:</p>
+                            <p>LastInfo:</p>
+                        </div>
+                    </div>
+                </div>
+        
+        
+            </div>
+        
+        </body>
+        </html>`;
+
+        // Create the html file
+        writeFileAsync('./dist/index.html', html);
+
 
     };
 
