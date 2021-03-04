@@ -67,21 +67,18 @@
     const createEngineer = ({name, id, email}, github) => {
         let engineer = new Engineer(name, id, email, github);
         employees.push(engineer);
-        console.log("New Engineer created: " + JSON.stringify(engineer));
     };
 
     // Create a Manager type employee
     const createManager = ({name, id, email}, officeNumber) => {
         let manager = new Manager(name, id, email, officeNumber);
         employees.push(manager);
-        console.log("New manager created: " + JSON.stringify(manager));
     };
 
     // Create an Intern type employee
     const createIntern = ({name, id, email}, school) => {
         let intern = new Intern(name, id, email, school);
         employees.push(intern);
-        console.log("New Intern created: " + JSON.stringify(intern));
     };
 
     // Prompt for creating a Manager
