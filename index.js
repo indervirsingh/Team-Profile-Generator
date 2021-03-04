@@ -186,6 +186,20 @@
             console.log(employee);
         });
 
+        // Extract the interns into an array
+        // generate the HTML
+        let interns = [];
+        let internCardsHTML = generateInternCard(interns);
+
+        // Same process for engineers
+        let engineers = [];
+        let engineerCardsHTML = generateEngineersCard(engineers);
+
+        // Lastly the manager
+        // She/he is always the first employee added
+        let manager = employees[0];
+        let managerCardHTML = generateManagerCard(manager);
+
         const html = `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -211,74 +225,122 @@
         
             <div class="grid-container">
                 <div class="managerDiv grid-x grid-margin-x">
-                    <div class="cell" id="managerCell">
-                        <div class="card" id="managerCard">
-                            <div class="card-divider">
-                                <h3>Manager Name, Manager</h3>
-                            </div>
-                            <div class="card-section">
-                                <p>ID:</p>
-                                <p>Email:</p>
-                                <p>Office Number:</p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         
             <!-- Cards for employees -->
             <div class="employeesDiv grid-x grid-margin-x small-up-2 medium-up-3">
-        
-                <div class="cell">
-                    <div class="card">
-                        <div class="card-divider">
-                            <h3>Employee name and type</h3>
-                        </div>
-                        <div class="card-section">
-                            <p>ID:</p>
-                            <p>Email:</p>
-                            <p>LastInfo:</p>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="cell">
-                    <div class="card">
-                        <div class="card-divider">
-                            <h3>Employee name and type</h3>
-                        </div>
-                        <div class="card-section">
-                            <p>ID:</p>
-                            <p>Email:</p>
-                            <p>LastInfo:</p>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="cell">
-                    <div class="card">
-                        <div class="card-divider">
-                            <h3>Employee name and type</h3>
-                        </div>
-                        <div class="card-section">
-                            <p>ID:</p>
-                            <p>Email:</p>
-                            <p>LastInfo:</p>
-                        </div>
-                    </div>
-                </div>
-        
-        
+                ${internCardsHTML}
+                ${engineerCardsHTML}
             </div>
         
         </body>
         </html>`;
 
-        // Create the html file
+        const css = `.title {
+            text-align: center;
+        }
+        
+        .card {
+            margin: 10px;
+            width: 400px;
+            border-radius: 1rem !important;
+        
+        }
+        
+        .card .card-divider {
+            background-color: blue;
+        }
+        
+        #managerCard .card-divider {
+            background-color: red;
+        }`;
+
+        // Create the html AND css file
         writeFileAsync('./dist/index.html', html);
+        writeFileAsync('./dist/style.css', css);
 
 
     };
+
+    // Generate Intern card(s)
+    const generateInternCard = (...interns) => {
+
+        let html = ``;
+        let space = `
+        `;
+
+        for (const {name, id, email, school} of interns) {
+            html +=
+            `<div class="cell">
+                <div class="card">
+                    <div class="card-divider">
+                        <h3>${name} - Intern</h3>
+                    </div>
+                    <div class="card-section">
+                        <p>ID: ${id}</p>
+                        <p>Email: ${email}</p>
+                        <p>School: ${school}</p>
+                    </div>
+                </div>
+            </div>`;
+
+            html += space;
+
+        };
+
+        return html;
+    };
+
+    // Generate Engineer card(s)
+    const generateEngineersCard = (...engineers) => {
+
+        let html = ``;
+        let space = `
+        `;
+
+        for (const {name, id, email, github} of engineers) {
+            html +=
+            `<div class="cell">
+                <div class="card">
+                    <div class="card-divider">
+                        <h3>${name} - Engineer</h3>
+                    </div>
+                    <div class="card-section">
+                        <p>ID: ${id}</p>
+                        <p>Email: ${email}</p>
+                        <p>GitHub: ${github}</p>
+                    </div>
+                </div>
+            </div>`;
+
+            html += space;
+
+        };
+
+        return html;
+    };
+
+    // Generate Manager card
+    const generateManagerCard = ({name, id, email, officeNumber}) => {
+
+        let html =
+        `<div class="cell" id="managerCell">
+            <div class="card" id="managerCard">
+                <div class="card-divider">
+                    <h3>${name} - Manager</h3>
+                </div>
+                <div class="card-section">
+                    <p>ID: ${id}</p>
+                    <p>Email: ${email}</p>
+                    <p>Office Number: ${officeNumber}</p>
+                </div>
+            </div>
+        </div>`;
+
+        return html;
+    }
 
     // Initialize the app
     const init = async() => {
