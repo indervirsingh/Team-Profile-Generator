@@ -181,18 +181,30 @@
 
     // Generate the HTML page
     const generateHTML = () => {
-        // Using the employees array, loop through and create a card for each employee
+
+        // Store the employees by type
+        let interns = [], engineers = [];
+
+        // Extract the interns and engineers into their respective arrays
         employees.forEach(employee => {
-            console.log(employee);
+
+            const currentEmployeeType = employee.getRole();
+
+            switch (currentEmployeeType) {
+                case 'Intern':
+                    interns.push(employee);
+                    break;
+                case 'Engineer':
+                    engineers.push(employee);
+                    break;
+            };
+
         });
 
-        // Extract the interns into an array
-        // generate the HTML
-        let interns = [];
+        // Generate the HTML needed for each Intern
         let internCardsHTML = generateInternCard(interns);
 
         // Same process for engineers
-        let engineers = [];
         let engineerCardsHTML = generateEngineersCard(engineers);
 
         // Lastly the manager
@@ -225,7 +237,7 @@
         
             <div class="grid-container">
                 <div class="managerDiv grid-x grid-margin-x">
-                    
+                    ${managerCardHTML}
                 </div>
             </div>
         
