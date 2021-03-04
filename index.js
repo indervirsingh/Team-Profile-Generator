@@ -34,7 +34,7 @@
 
 /* FUNCTIONS EXPLAINED:
 
-    There are a total of [11] functions.
+    There are a total of [14] functions.
 
     [1] writeFileAsync() is a small function that will create the HTML file needed
 
@@ -52,7 +52,11 @@
         - create the each card using the employee data
         - create the HTML file by calling the writeFileAsync() function
 
-    [11] init() initializes/runs the entire program
+    [11-13] generateInternCards(), generateEngineerCards(), generateManagerCard() all perform the same task
+        - loop through each array and create a card for each employee
+        - there is only one manager so a loop isn't needed for extracting info for manager's card
+
+    [14] init() initializes/runs the entire program
 
 */
 
@@ -202,10 +206,10 @@
         });
 
         // Generate the HTML needed for each Intern
-        let internCardsHTML = generateInternCard(interns);
+        let internCardsHTML = generateInternCards(interns);
 
         // Same process for engineers
-        let engineerCardsHTML = generateEngineersCard(engineers);
+        let engineerCardsHTML = generateEngineerCards(engineers);
 
         // Lastly the manager
         // She/he is always the first employee added
@@ -277,7 +281,7 @@
     };
 
     // Generate Intern card(s)
-    const generateInternCard = (...interns) => {
+    const generateInternCards = (...interns) => {
 
         let html = ``;
         let space = `
@@ -306,7 +310,7 @@
     };
 
     // Generate Engineer card(s)
-    const generateEngineersCard = (...engineers) => {
+    const generateEngineerCards = (...engineers) => {
 
         let html = ``;
         let space = `
