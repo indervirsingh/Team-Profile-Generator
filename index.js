@@ -83,20 +83,22 @@
 
     // Prompt for creating a Manager
     const teamManagerPrompt = () => {
+        console.log("--------------------ADDING TEAM MANAGER--------------------");
+        console.log("*\n*\n*");
         return inquirer.prompt([
             {
                 type: 'input',
-                name: 'managerName',
+                name: 'name',
                 message: 'Please enter the name of your team manager:'
             },
             {
                 type: 'input',
-                name: 'managerId',
+                name: 'id',
                 message: 'Please enter your team manager\'s ID:'
             },
             {
                 type: 'input',
-                name: 'managerEmail',
+                name: 'email',
                 message: 'Please enter your team manager\'s email address:'
             },
             {
@@ -110,6 +112,8 @@
 
     // Prompt for creating an Engineer
     const createEngineerPrompt = () => {
+        console.log("\n\n----------------------ADDING ENGINEER----------------------");
+        console.log("*\n*\n*");
         return inquirer.prompt([
             {
                 type: 'input',
@@ -136,6 +140,8 @@
 
     // Prompt for creating an Intern
     const createInternPrompt = () => {
+        console.log("\n\n-----------------------ADDING INTERN-----------------------");
+        console.log("*\n*\n*");
         return inquirer.prompt([
             {
                 type: 'input',
@@ -162,6 +168,7 @@
 
     // Asking to keep adding employees prompt
     const addEmployeesPrompt = () => {
+        console.log("\n\n-----------------------OPTIONS MENU-----------------------\n\n");
         return inquirer.prompt([
             {
                 type: 'list',
@@ -353,11 +360,16 @@
 
         // Get team manager info first
         // This condition is so manager information is asked only once
+
         if (employees.length <= 0) {
+
             let response = await teamManagerPrompt();
+
             // Extract the info needed, then create the manager
-            const { managerName: name, managerId: id, managerEmail: email, officeNumber } = response;
+            const { name, id, email, officeNumber } = response;
             createManager(addEmployee(name, id, email,), officeNumber);
+            console.log("--------------------TEAM MANAGER ADDED--------------------");
+
         }
 
         // This variable will decide if we run this function again or not
@@ -366,26 +378,36 @@
         // Ask about employees, based on response then decide what to do
         let userOption = await addEmployeesPrompt();
         let option = userOption.options;
+
+        // 3 options: Create engineer, Create intern, Finish building team
         switch (option) {
+
             case 'Add Engineer':
                 let engineerAnswers = await createEngineerPrompt();
                 const { name: engineerName, id: engineerId, email: engineerEmail, github } = engineerAnswers;
                 createEngineer(addEmployee(engineerName, engineerId, engineerEmail), github);
-                break;
+                console.log("----------------------ENGINEER ADDED----------------------");
+            break;
+
             case 'Add Intern':
                 let internAnswers = await createInternPrompt();
                 const { name: internName, id: internId, email: internEmail, school } = internAnswers;
                 createIntern(addEmployee(internName, internId, internEmail), school);
-                break;
+                console.log("-----------------------INTERN ADDED-----------------------");
+            break;
+
             case 'Finish Building Team':
                 generateHTML();
                 addMore = false;
-                break;
+            break;
+
             default:
                 console.log("If you're reading this then somehow you broke my program...tell me how...or forever be stuck in this loop");
+            break;
+
         };
 
-        // This means that if the client didn't choose the finish option then we will run this function again
+        // This means that if the client didn't choose the finish option then we will run this function again until they do
         if (addMore) {
             init();
         }
