@@ -1,11 +1,3 @@
-// *Compiled-Code* ____________________________________________________________________________________________________________
-
-    // This will run/initialize the program
-    init();
-
-// ____________________________________________________________________________________________________________________________
-
-
 /* VARIABLES EXPLAINED:
 
     The only variable I had declared beforehand is an empty array which will hold all the employee-type objects (engineer, intern, manager).
@@ -277,11 +269,12 @@
         writeFileAsync('./dist/index.html', html);
         writeFileAsync('./dist/style.css', css);
 
+        console.log("Your Team Profile has been generated!\nPlease check in the dist folder for HTML/CSS files.");
 
     };
 
     // Generate Intern card(s)
-    const generateInternCards = (...interns) => {
+    const generateInternCards = (interns) => {
 
         let html = ``;
         let space = `
@@ -296,7 +289,7 @@
                     </div>
                     <div class="card-section">
                         <p>ID: ${id}</p>
-                        <p>Email: ${email}</p>
+                        <p>Email: <a href="mailto:${email}">${email}</a></p>
                         <p>School: ${school}</p>
                     </div>
                 </div>
@@ -310,7 +303,7 @@
     };
 
     // Generate Engineer card(s)
-    const generateEngineerCards = (...engineers) => {
+    const generateEngineerCards = (engineers) => {
 
         let html = ``;
         let space = `
@@ -325,8 +318,8 @@
                     </div>
                     <div class="card-section">
                         <p>ID: ${id}</p>
-                        <p>Email: ${email}</p>
-                        <p>GitHub: ${github}</p>
+                        <p>Email: <a href="mailto:${email}">${email}</a></p>
+                        <p>GitHub: <a href="https://www.github.com/${github}" target="_blank">${github}</a></p>
                     </div>
                 </div>
             </div>`;
@@ -349,14 +342,14 @@
                 </div>
                 <div class="card-section">
                     <p>ID: ${id}</p>
-                    <p>Email: ${email}</p>
+                    <p>Email: <a href="mailto:${email}">${email}</a></p>
                     <p>Office Number: ${officeNumber}</p>
                 </div>
             </div>
         </div>`;
 
         return html;
-    }
+    };
 
     // Initialize the app
     const init = async() => {
@@ -366,7 +359,7 @@
         if (employees.length <= 0) {
             let response = await teamManagerPrompt();
             // Extract the info needed, then create the manager
-            const { managerName: name, managerId: id, managerEmail, email, officeNumber } = response;
+            const { managerName: name, managerId: id, managerEmail: email, officeNumber } = response;
             createManager(addEmployee(name, id, email,), officeNumber);
         }
 
@@ -400,5 +393,13 @@
             init();
         }
     };
+
+// ____________________________________________________________________________________________________________________________
+
+
+// *Compiled-Code* ____________________________________________________________________________________________________________
+
+    // This will run/initialize the program
+    init();
 
 // ____________________________________________________________________________________________________________________________
