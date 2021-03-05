@@ -84,9 +84,9 @@
 
     // Prompt for creating a Manager
     const teamManagerPrompt = () => {
-        console.log("--------------------ADDING TEAM MANAGER--------------------" .green .bgWhite);
+        console.log("********************" .green .bgBlue + "ADDING TEAM MANAGER" .underline .green .bgBlue + "********************" .green .bgBlue);
         console.log("\n");
-        console.log("STATUS: IN PROGRESS" .bgRed);
+        console.log("STATUS: " .bgRed + "IN PROGRESS" .bold .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
@@ -115,9 +115,9 @@
     // Prompt for creating an Engineer
     const createEngineerPrompt = () => {
         console.log("\n\n");
-        console.log("----------------------ADDING ENGINEER----------------------" .green .bgWhite);
+        console.log("**********************" .green .bgBlue + "ADDING ENGINEER" .underline .green .bgBlue + "**********************" .green .bgBlue);
         console.log("\n");
-        console.log("STATUS: IN PROGRESS" .bgRed);
+        console.log("STATUS: " .bgRed + "IN PROGRESS" .bold .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
@@ -145,8 +145,9 @@
     // Prompt for creating an Intern
     const createInternPrompt = () => {
         console.log("\n\n");
-        console.log("-----------------------ADDING INTERN-----------------------" .green .bgWhite);
-        console.log("STATUS: IN PROGRESS" .bgRed);
+        console.log("***********************" .green .bgBlue + "ADDING INTERN" .underline .green .bgBlue + "***********************" .green .bgBlue);
+        console.log("\n");
+        console.log("STATUS: " .bgRed + "IN PROGRESS" .bold .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
@@ -174,7 +175,7 @@
     // Asking to keep adding employees prompt
     const addEmployeesPrompt = () => {
         console.log("\n\n");
-        console.log("-----------------------OPTIONS MENU-----------------------" .green .bgWhite);
+        console.log("***********************" .green .bgBlue + "OPTIONS MENU" .underline .green .bgBlue + "***********************" .green .bgBlue);
         return inquirer.prompt([
             {
                 type: 'list',
@@ -375,9 +376,9 @@
             // Extract the info needed, then create the manager
             const { name, id, email, officeNumber } = response;
             createManager(addEmployee(name, id, email,), officeNumber);
-            console.log("STATUS: SUCCESS" .bgGreen);
+            console.log("STATUS: " .bgGreen + "SUCCESS" .bold .bgGreen);
             console.log("\n");
-            console.log("--------------------TEAM MANAGER ADDED--------------------" .green .bgWhite);
+            console.log("********************" .green .bgBlue + "TEAM MANAGER ADDED" .underline .green .bgBlue + "********************" .green .bgBlue);
 
         }
 
@@ -395,18 +396,18 @@
                 let engineerAnswers = await createEngineerPrompt();
                 const { name: engineerName, id: engineerId, email: engineerEmail, github } = engineerAnswers;
                 createEngineer(addEmployee(engineerName, engineerId, engineerEmail), github);
-                console.log("STATUS: SUCCESS" .bgGreen);
+                console.log("STATUS: " .bgGreen + "SUCCESS" .bold .bgGreen);
                 console.log("\n");
-                console.log("----------------------ENGINEER ADDED----------------------" .green .bgWhite);
+                console.log("**********************" .green .bgBlue + "ENGINEER ADDED" .underline .green .bgBlue + "**********************" .green .bgBlue);
             break;
 
             case 'Add Intern':
                 let internAnswers = await createInternPrompt();
                 const { name: internName, id: internId, email: internEmail, school } = internAnswers;
                 createIntern(addEmployee(internName, internId, internEmail), school);
-                console.log("STATUS: SUCCESS" .bgGreen);
+                console.log("STATUS: " .bgGreen + "SUCCESS" .bold .bgGreen);
                 console.log("\n");
-                console.log("-----------------------INTERN ADDED-----------------------" .green .bgWhite);
+                console.log("***********************" .green .bgBlue + "INTERN ADDED" .underline .green .bgBlue + "***********************" .green .bgBlue);
             break;
 
             case 'Finish Building Team':
