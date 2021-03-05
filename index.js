@@ -11,6 +11,7 @@
     const inquirer = require('inquirer');
     const fs = require('fs');
     const util = require('util');
+    const colors = require('colors');
 
     // Classes needed/imported
     const Employee = require('./lib/Employee');
@@ -83,28 +84,29 @@
 
     // Prompt for creating a Manager
     const teamManagerPrompt = () => {
-        console.log("--------------------ADDING TEAM MANAGER--------------------");
-        console.log("*\n*\n*");
+        console.log("--------------------ADDING TEAM MANAGER--------------------" .green .bgWhite);
+        console.log("\n");
+        console.log("STATUS: IN PROGRESS" .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
                 name: 'name',
-                message: 'Please enter the name of your team manager:'
+                message: 'Please enter the name of your team manager:\n'
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'Please enter your team manager\'s ID:'
+                message: 'Please enter your team manager\'s ID:\n'
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'Please enter your team manager\'s email address:'
+                message: 'Please enter your team manager\'s email address:\n'
             },
             {
                 type: 'input',
                 name: 'officeNumber',
-                message: 'Please enter your team manager\s office number:'
+                message: 'Please enter your team manager\s office number:\n'
             }
         ]);
 
@@ -112,63 +114,67 @@
 
     // Prompt for creating an Engineer
     const createEngineerPrompt = () => {
-        console.log("\n\n----------------------ADDING ENGINEER----------------------");
-        console.log("*\n*\n*");
+        console.log("\n\n");
+        console.log("----------------------ADDING ENGINEER----------------------" .green .bgWhite);
+        console.log("\n");
+        console.log("STATUS: IN PROGRESS" .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
                 name: 'name',
-                message: 'Please enter the name of the Engineer:'
+                message: 'Please enter the name of the Engineer:\n'
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'Please enter the Engineer\'s ID number:'
+                message: 'Please enter the Engineer\'s ID number:\n'
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'Please enter the Engineer\'s email address:'
+                message: 'Please enter the Engineer\'s email address:\n'
             },
             {
                 type: 'input',
                 name: 'github',
-                message: 'Please enter the Engineer\'s GitHub username:'
+                message: 'Please enter the Engineer\'s GitHub username:\n'
             }
         ]);
     }
 
     // Prompt for creating an Intern
     const createInternPrompt = () => {
-        console.log("\n\n-----------------------ADDING INTERN-----------------------");
-        console.log("*\n*\n*");
+        console.log("\n\n");
+        console.log("-----------------------ADDING INTERN-----------------------" .green .bgWhite);
+        console.log("STATUS: IN PROGRESS" .bgRed);
         return inquirer.prompt([
             {
                 type: 'input',
                 name: 'name',
-                message: 'Please enter the name of the Intern:'
+                message: 'Please enter the name of the Intern:\n'
             },
             {
                 type: 'input',
                 name: 'id',
-                message: 'Please enter the Intern\'s ID number:'
+                message: 'Please enter the Intern\'s ID number:\n'
             },
             {
                 type: 'input',
                 name: 'email',
-                message: 'Please enter the Intern\'s email address:'
+                message: 'Please enter the Intern\'s email address:\n'
             },
             {
                 type: 'input',
                 name: 'school',
-                message: 'Please enter the School/University that the Intern is currently studying at:'
+                message: 'Please enter the School/University that the Intern is currently studying at:\n'
             }
         ]);
     };
 
     // Asking to keep adding employees prompt
     const addEmployeesPrompt = () => {
-        console.log("\n\n-----------------------OPTIONS MENU-----------------------\n\n");
+        console.log("\n\n");
+        console.log("-----------------------OPTIONS MENU-----------------------" .green .bgWhite);
         return inquirer.prompt([
             {
                 type: 'list',
@@ -273,7 +279,8 @@
         writeFileAsync('./dist/index.html', html);
         writeFileAsync('./dist/style.css', css);
 
-        console.log("Your Team Profile has been generated!\nPlease check in the dist folder for HTML/CSS files.");
+        console.log("\n\n");
+        console.log("Your Team Profile has been generated!\nPlease check in the dist folder for HTML/CSS files." .bgGreen);
 
     };
 
@@ -368,7 +375,9 @@
             // Extract the info needed, then create the manager
             const { name, id, email, officeNumber } = response;
             createManager(addEmployee(name, id, email,), officeNumber);
-            console.log("--------------------TEAM MANAGER ADDED--------------------");
+            console.log("STATUS: SUCCESS" .bgGreen);
+            console.log("\n");
+            console.log("--------------------TEAM MANAGER ADDED--------------------" .green .bgWhite);
 
         }
 
@@ -386,14 +395,18 @@
                 let engineerAnswers = await createEngineerPrompt();
                 const { name: engineerName, id: engineerId, email: engineerEmail, github } = engineerAnswers;
                 createEngineer(addEmployee(engineerName, engineerId, engineerEmail), github);
-                console.log("----------------------ENGINEER ADDED----------------------");
+                console.log("STATUS: SUCCESS" .bgGreen);
+                console.log("\n");
+                console.log("----------------------ENGINEER ADDED----------------------" .green .bgWhite);
             break;
 
             case 'Add Intern':
                 let internAnswers = await createInternPrompt();
                 const { name: internName, id: internId, email: internEmail, school } = internAnswers;
                 createIntern(addEmployee(internName, internId, internEmail), school);
-                console.log("-----------------------INTERN ADDED-----------------------");
+                console.log("STATUS: SUCCESS" .bgGreen);
+                console.log("\n");
+                console.log("-----------------------INTERN ADDED-----------------------" .green .bgWhite);
             break;
 
             case 'Finish Building Team':
