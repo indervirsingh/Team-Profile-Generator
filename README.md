@@ -12,15 +12,17 @@ A Node.js command-line application that takes in information about employees on 
 * [Questions](#questions)
 
 ## Installation
-1. Clone the repo, 2. Run the command "npm i", 3. Run the command "node index.js" and then the app will begin
+    1. Clone the repo
+    2. Run the command "npm i"
+    3. Run the command "node index.js"
 ## Usage
-When a team needs to build a webpage which shows all the team's members and information, this application will be perfect for it
+When a team needs to build a webpage which shows all the team's members and information, this application will be perfect for it.
 
 ## Collaborators
 [Indervir Singh (me)](https://www.github.com/indervirsingh/)
 
 ## Testing
-
+Demo video of application: (coming soon)
 
 ## License
 Licensed under Mozilla Public License 2.0
