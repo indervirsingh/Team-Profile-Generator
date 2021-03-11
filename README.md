@@ -22,7 +22,7 @@ When a team needs to build a webpage which shows all the team's members and info
 [Indervir Singh (me)](https://www.github.com/indervirsingh/)
 
 ## Testing
-Demo video of application: (coming soon)
+Demo video of application: [here](https://drive.google.com/file/d/1it9TGMX33PaA3Sx8xXNWATMEwaU2uIld/view)
 
 ## License
 Licensed under Mozilla Public License 2.0
